@@ -1,4 +1,4 @@
-package ru.job4j.accident.control;
+/*package ru.job4j.accident.control;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,4 +13,4 @@ public class IndexControl {
         model.addAttribute("users", List.of("Petr Arsentev", "John Smith", "Vasya Pupkin"));
         return "index";
     }
-}
+}*/
