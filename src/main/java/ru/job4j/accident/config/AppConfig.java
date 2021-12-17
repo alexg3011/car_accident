@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @ComponentScan("ru.job4j.accident")
-public class WebConfig {
+public class AppConfig {
 
     @Bean
     public ViewResolver viewResolver() {

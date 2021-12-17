@@ -25,12 +25,14 @@
             <div class="card-header">
             </div>
             <div class="card-body">
+                <div><a href="<c:url value='/create'/>">Добавить инцидент</a></div>
                 <table class="table table-bordered" style="table-layout: fixed">
                     <thead>
                     <tr>
                         <th style="text-align: center">Название</th>
                         <th style="text-align: center">Описание</th>
                         <th style="text-align: center">Адрес</th>
+                        <th style="text-align: center">Действие</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,6 +41,13 @@
                             <td><c:out value="${acc.name}"/></td>
                             <td><c:out value="${acc.text}"/></td>
                             <td><c:out value="${acc.address}"/></td>
+                            <td>
+                                <form action="<c:url value="/create"/>"
+                                      method="get"
+                                      enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-primary">Изменить</button>
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
