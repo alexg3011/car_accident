@@ -2,6 +2,7 @@ package ru.job4j.accident.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,7 +12,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class AccidentMem implements Store {
     private final Map<Integer, Accident> accidents = new HashMap<>();
+    private final Map<Integer, AccidentType> types = new HashMap<>();
     private final AtomicInteger count = new AtomicInteger(0);
+    private final AtomicInteger typeCount = new AtomicInteger(0);
 
     @Override
     public void add(Accident accident) {
@@ -39,5 +42,23 @@ public class AccidentMem implements Store {
     @Override
     public void delete(int id) {
         accidents.remove(id);
+    }
+
+    @Override
+    public void addType(AccidentType type) {
+        if (type.getId() == 0) {
+            type.setId(typeCount.getAndIncrement());
+        }
+        types.put(type.getId(), type);
+    }
+
+    @Override
+    public AccidentType findTypeById(int id) {
+        return types.get(id);
+    }
+
+    @Override
+    public Collection<AccidentType> findAllType() {
+        return types.values();
     }
 }

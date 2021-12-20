@@ -30,6 +30,7 @@
                     <thead>
                     <tr>
                         <th style="text-align: center">Название</th>
+                        <th style="text-align: center">Тип происшествия</th>
                         <th style="text-align: center">Описание</th>
                         <th style="text-align: center">Адрес</th>
                         <th style="text-align: center">Действие</th>
@@ -39,6 +40,7 @@
                     <c:forEach items="${accidents}" var="acc">
                         <tr>
                             <td><c:out value="${acc.name}"/></td>
+                            <td><c:out value="${acc.type.name}"/></td>
                             <td><c:out value="${acc.text}"/></td>
                             <td><c:out value="${acc.address}"/></td>
                             <td>

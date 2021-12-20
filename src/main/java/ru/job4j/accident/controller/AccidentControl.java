@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.service.AccidentService;
 
 @Controller
@@ -20,7 +21,11 @@ public class AccidentControl {
     }
 
     @GetMapping("/create")
-    public String create() {
+    public String create(Model model) {
+        accidents.addType(AccidentType.of(1, "Две машины"));
+        accidents.addType(AccidentType.of(2, "Машина и человек"));
+        accidents.addType(AccidentType.of(3, "Машина и велосипед"));
+        model.addAttribute("types", accidents.getAllTypes());
         return "accident/create";
     }
 
