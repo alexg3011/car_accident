@@ -42,11 +42,8 @@
                             <td><c:out value="${acc.text}"/></td>
                             <td><c:out value="${acc.address}"/></td>
                             <td>
-                                <form action="<c:url value="/create"/>"
-                                      method="get"
-                                      enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary">Изменить</button>
-                                </form>
+                                <a href="<c:url value='/update?id=${acc.id}'/>">Изменить</a>
+                                <a href="<c:url value='/delete?id=${acc.id}'/>">Удалить</a>
                             </td>
                         </tr>
                     </c:forEach>

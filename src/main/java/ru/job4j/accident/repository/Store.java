@@ -8,7 +8,11 @@ public interface Store {
 
     void add(Accident accident);
 
-    Accident get(int id);
+    void update(Accident accident);
+
+    Accident findById(int id);
 
     Collection<Accident> findAll();
+
+    void delete(int id);
 }

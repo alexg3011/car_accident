@@ -5,23 +5,23 @@
     <title>Edit</title>
 </head>
 <body>
-<form action="<c:url value='/save'/>" method='POST'>
+<form action="<c:url value='/update?id=${accident.id}'/>" method='POST'>
     <table style="font-size: larger">
         <tr>
             <td>Название:</td>
             <td>
-                <input type='text' name='name' placeholder="Введите название" required>
+                <input type='text' name='name' value="${accident.name}">
             </td>
         </tr>
         <tr>
             <td>Описание:</td>
             <td>
-                <textarea name="text" rows="5" placeholder="Подробное описание инцидента" required></textarea>
+                <textarea name="text" rows="5">${accident.text}</textarea>
             </td>
         </tr>
         <tr>
             <td>Адрес:</td>
-            <td><input type='text' name='address' placeholder="Адрес инцидента" required></td>
+            <td><input type='text' name='address' value="${accident.address}"></td>
         </tr>
         <tr>
             <td colspan='2'><input name="submit" type="submit" value="Сохранить"/></td>
