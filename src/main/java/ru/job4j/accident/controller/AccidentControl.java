@@ -38,8 +38,10 @@ public class AccidentControl {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute Accident accident) {
-        accidents.updateAccident(accident);
+    public String update(@RequestParam("name") String name, @RequestParam("id") int id) {
+        Accident editAcc = accidents.getAccident(id);
+        editAcc.setName(name);
+        accidents.updateAccident(editAcc);
         return "redirect:/";
     }
 

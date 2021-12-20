@@ -14,16 +14,6 @@
             </td>
         </tr>
         <tr>
-            <td>Описание:</td>
-            <td>
-                <textarea name="text" rows="5">${accident.text}</textarea>
-            </td>
-        </tr>
-        <tr>
-            <td>Адрес:</td>
-            <td><input type='text' name='address' value="${accident.address}"></td>
-        </tr>
-        <tr>
             <td colspan='2'><input name="submit" type="submit" value="Сохранить"/></td>
         </tr>
     </table>
