@@ -16,16 +16,24 @@ public class AccidentMem implements Store {
     private final AtomicInteger count = new AtomicInteger(0);
     private final AtomicInteger typeCount = new AtomicInteger(0);
 
+    public AccidentMem() {
+        addType(AccidentType.of(1, "Две машины"));
+        addType(AccidentType.of(2, "Машина и человек"));
+        addType(AccidentType.of(3, "Машина и велосипед"));
+    }
+
     @Override
     public void add(Accident accident) {
         if (accident.getId() == 0) {
             accident.setId(count.getAndIncrement());
         }
+        accident.setType(findTypeById(accident.getType().getId()));
         accidents.put(accident.getId(), accident);
     }
 
     @Override
     public void update(Accident accident) {
+        accident.setType(findTypeById(accident.getType().getId()));
         accidents.replace(accident.getId(), accident);
     }
 

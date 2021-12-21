@@ -19,7 +19,6 @@ public class AccidentService {
     }
 
     public void addAccident(Accident accident) {
-        accident.setType(store.findTypeById(accident.getType().getId()));
         store.add(accident);
     }
 
@@ -45,5 +44,9 @@ public class AccidentService {
 
     public void addType(AccidentType type) {
         store.addType(type);
+    }
+
+    public AccidentType findTypeById(int id) {
+        return store.findTypeById(id);
     }
 }

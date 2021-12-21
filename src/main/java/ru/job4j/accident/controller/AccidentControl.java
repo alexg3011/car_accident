@@ -22,15 +22,14 @@ public class AccidentControl {
 
     @GetMapping("/create")
     public String create(Model model) {
-        accidents.addType(AccidentType.of(1, "Две машины"));
-        accidents.addType(AccidentType.of(2, "Машина и человек"));
-        accidents.addType(AccidentType.of(3, "Машина и велосипед"));
         model.addAttribute("types", accidents.getAllTypes());
         return "accident/create";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident) {
+        AccidentType type = accidents.findTypeById(accident.getType().getId());
+        accident.setType(type);
         accidents.addAccident(accident);
         return "redirect:/";
     }
@@ -39,14 +38,13 @@ public class AccidentControl {
     public String update(@RequestParam("id") int id, Model model) {
         Accident accident = accidents.getAccident(id);
         model.addAttribute("accident", accident);
+        model.addAttribute("types", accidents.getAllTypes());
         return "accident/update";
     }
 
     @PostMapping("/update")
-    public String update(@RequestParam("name") String name, @RequestParam("id") int id) {
-        Accident editAcc = accidents.getAccident(id);
-        editAcc.setName(name);
-        accidents.updateAccident(editAcc);
+    public String update(@ModelAttribute Accident accident, Model model) {
+        accidents.updateAccident(accident);
         return "redirect:/";
     }
 
