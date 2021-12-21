@@ -5,7 +5,8 @@
     <title>Edit</title>
 </head>
 <body>
-<form action="<c:url value='/update?id=${accident.id}'/>" method='POST'>
+<form action="<c:url value='/update?id=${accident.id}'/>"
+      method='POST'>
     <table style="font-size: larger">
         <tr>
             <td>Название:</td>
