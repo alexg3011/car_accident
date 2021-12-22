@@ -3,10 +3,9 @@ package ru.job4j.accident.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
+import ru.job4j.accident.model.Rule;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
@@ -14,6 +13,7 @@ public class AccidentMem implements Store {
 
     private final Map<Integer, Accident> accidents = new HashMap<>();
     private final Map<Integer, AccidentType> types = new HashMap<>();
+    private final Map<Integer, Rule> rules = new HashMap<>();
     private final AtomicInteger count = new AtomicInteger(0);
     private final AtomicInteger typeCount = new AtomicInteger(0);
 
@@ -21,20 +21,25 @@ public class AccidentMem implements Store {
         addType(AccidentType.of(1, "Две машины"));
         addType(AccidentType.of(2, "Машина и человек"));
         addType(AccidentType.of(3, "Машина и велосипед"));
+        addRule(Rule.of(1, "Статья. 1"));
+        addRule(Rule.of(2, "Статья. 2"));
+        addRule(Rule.of(3, "Статья. 3"));
     }
 
     @Override
-    public void add(Accident accident) {
+    public void add(Accident accident, String[] rIds) {
         if (accident.getId() == 0) {
             accident.setId(count.getAndIncrement());
         }
+        accident.setRules(getCurrentRule(rIds));
         accident.setType(findTypeById(accident.getType().getId()));
         accidents.put(accident.getId(), accident);
     }
 
     @Override
-    public void update(Accident accident) {
+    public void update(Accident accident, String[] rIds) {
         accident.setType(findTypeById(accident.getType().getId()));
+        accident.setRules(getCurrentRule(rIds));
         accidents.replace(accident.getId(), accident);
     }
 
@@ -69,5 +74,28 @@ public class AccidentMem implements Store {
     @Override
     public Collection<AccidentType> findAllType() {
         return types.values();
+    }
+
+    @Override
+    public void addRule(Rule rule) {
+        rules.put(rule.getId(), rule);
+    }
+    @Override
+    public Rule getRule(int id) {
+        return rules.get(id);
+    }
+
+    @Override
+    public Set<Rule> getCurrentRule(String[] ids) {
+        Set<Rule> currentRule = new HashSet<>();
+        for (String rId : ids) {
+            currentRule.add(getRule(Integer.parseInt(rId)));
+        }
+        return currentRule;
+    }
+
+    @Override
+    public Collection<Rule> getAllRule() {
+        return rules.values();
     }
 }

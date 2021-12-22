@@ -31,6 +31,7 @@
                     <tr>
                         <th style="text-align: center">Название</th>
                         <th style="text-align: center">Тип происшествия</th>
+                        <th style="text-align: center">Статья</th>
                         <th style="text-align: center">Описание</th>
                         <th style="text-align: center">Адрес</th>
                         <th style="text-align: center">Действие</th>
@@ -41,6 +42,10 @@
                         <tr>
                             <td><c:out value="${acc.name}"/></td>
                             <td><c:out value="${acc.type.name}"/></td>
+                            <td><c:forEach items="${acc.rules}" var="rule">
+                                <c:out value="${rule.name}"/>
+                                <br>
+                            </c:forEach></td>
                             <td><c:out value="${acc.text}"/></td>
                             <td><c:out value="${acc.address}"/></td>
                             <td>
