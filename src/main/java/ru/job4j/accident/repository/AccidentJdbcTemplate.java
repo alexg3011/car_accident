@@ -1,12 +1,10 @@
 package ru.job4j.accident.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
@@ -17,11 +15,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
-@Repository
+
 public class AccidentJdbcTemplate implements Store {
     private final JdbcTemplate jdbc;
 
-    @Autowired
     public AccidentJdbcTemplate(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }
@@ -42,7 +39,7 @@ public class AccidentJdbcTemplate implements Store {
         int aId = (Integer) Objects.requireNonNull(holder.getKeys()).get("id");
         accident.setId(aId);
         for (String id : rIds) {
-            jdbc.update("insert into accident_rule (accident_id, rule_id) "
+            jdbc.update("insert into accident_rule (accident_id, rules_id) "
                             + "values (?,?)",
                     aId,
                     Integer.parseInt(id));
@@ -55,7 +52,7 @@ public class AccidentJdbcTemplate implements Store {
                 accident.getName(), accident.getText(), accident.getAddress(), accident.getType().getId(), accident.getId());
         jdbc.update("delete from accident_rule where accident_id=?", accident.getId());
         for (String rId : rIds) {
-            jdbc.update("insert into accident_rule (accident_id, rule_id) values (?, ?)",
+            jdbc.update("insert into accident_rule (accident_id, rules_id) values (?, ?)",
                     accident.getId(), Integer.parseInt(rId));
         }
     }
@@ -68,7 +65,7 @@ public class AccidentJdbcTemplate implements Store {
                         + "from accident a "
                         + "left join type t on a.type_id = t.id "
                         + "left join accident_rule ar on a.id = ar.accident_id "
-                        + "join rule r on ar.rule_id = r.id",
+                        + "join rule r on ar.rules_id = r.id",
                 new AccidentResultSet());
 
     }
@@ -86,7 +83,7 @@ public class AccidentJdbcTemplate implements Store {
                                 + "from accident a "
                                 + "left join type t on a.id = t.id "
                                 + "left join accident_rule ar on a.id = ar.accident_id "
-                                + "join rule r on ar.rule_id = r.id "
+                                + "join rule r on ar.rules_id = r.id "
                                 + "where a.id = ?", new Object[]{id}, new AccidentResultSet())
                 .stream().findAny().orElse(null);
     }

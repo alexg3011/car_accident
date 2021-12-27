@@ -20,7 +20,7 @@ create table accident_rule
 (
     id          serial primary key,
     accident_id int references accident (id) on delete cascade,
-    rule_id     int references rule (id)
+    rules_id     int references rule (id)
 );
 
 insert into rule values (1, 'Статья 1');
