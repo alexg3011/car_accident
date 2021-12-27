@@ -1,6 +1,5 @@
 package ru.job4j.accident.repository;
 
-import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
@@ -8,7 +7,7 @@ import ru.job4j.accident.model.Rule;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
+
 public class AccidentMem implements Store {
 
     private final Map<Integer, Accident> accidents = new HashMap<>();
@@ -49,21 +48,13 @@ public class AccidentMem implements Store {
     }
 
     @Override
-    public Collection<Accident> findAll() {
+    public Collection<Accident> getAll() {
         return accidents.values();
     }
 
     @Override
     public void delete(int id) {
         accidents.remove(id);
-    }
-
-    @Override
-    public void addType(AccidentType type) {
-        if (type.getId() == 0) {
-            type.setId(typeCount.getAndIncrement());
-        }
-        types.put(type.getId(), type);
     }
 
     @Override
@@ -76,26 +67,32 @@ public class AccidentMem implements Store {
         return types.values();
     }
 
-    @Override
-    public void addRule(Rule rule) {
+    private void addRule(Rule rule) {
         rules.put(rule.getId(), rule);
     }
+
     @Override
     public Rule getRule(int id) {
         return rules.get(id);
     }
 
     @Override
-    public Set<Rule> getCurrentRule(String[] ids) {
+    public Collection<Rule> getAllRule() {
+        return rules.values();
+    }
+
+    private void addType(AccidentType type) {
+        if (type.getId() == 0) {
+            type.setId(typeCount.getAndIncrement());
+        }
+        types.put(type.getId(), type);
+    }
+
+    private Set<Rule> getCurrentRule(String[] ids) {
         Set<Rule> currentRule = new HashSet<>();
         for (String rId : ids) {
             currentRule.add(getRule(Integer.parseInt(rId)));
         }
         return currentRule;
-    }
-
-    @Override
-    public Collection<Rule> getAllRule() {
-        return rules.values();
     }
 }

@@ -86,4 +86,8 @@ public class Accident {
     public void setRules(Set<Rule> rules) {
         this.rules = rules;
     }
+
+    public void addRule(Rule rule) {
+        rules.add(rule);
+    }
 }

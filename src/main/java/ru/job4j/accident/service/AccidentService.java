@@ -32,7 +32,7 @@ public class AccidentService {
     }
 
     public Collection<Accident> findAll() {
-        return store.findAll();
+        return store.getAll();
     }
 
     public void deleteAccident(int id) {
