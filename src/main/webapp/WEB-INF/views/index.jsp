@@ -19,6 +19,9 @@
     <title>Нарушения</title>
 </head>
 <body>
+<div>
+    Login as : ${user.username}
+</div>
 <div class="container">
     <div class="row">
         <div class="card" style="width: 100%">
