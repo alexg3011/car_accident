@@ -15,6 +15,11 @@
         <tr>
             <td colspan='2'><input name="submit" type="submit" value="submit" /></td>
         </tr>
+        <c:if test="${not empty errorMsg}">
+            <div style="color:red; font-weight: bold; margin: 30px 0px;">
+                    ${errorMsg}
+            </div>
+        </c:if>
     </table>
 </form>
 </body>
