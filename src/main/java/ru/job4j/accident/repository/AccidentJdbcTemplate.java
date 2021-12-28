@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
@@ -23,6 +24,7 @@ public class AccidentJdbcTemplate implements Store {
         this.jdbc = jdbc;
     }
 
+    @Transactional
     @Override
     public void add(Accident accident, String[] rIds) {
         GeneratedKeyHolder holder = new GeneratedKeyHolder();
@@ -46,6 +48,7 @@ public class AccidentJdbcTemplate implements Store {
         }
     }
 
+    @Transactional
     @Override
     public void update(Accident accident, String[] rIds) {
         jdbc.update("update accident set name=?, text=?, address=?, type_id=? where id=?",
