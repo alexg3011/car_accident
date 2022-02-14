@@ -19,8 +19,18 @@
     <title>Нарушения</title>
 </head>
 <body>
-<div>
-    Login as : ${user.username}
+<h1 align="center">Происшествия</h1>
+<div class="container">
+<div class="row" >
+    <ul class="nav">
+        <li>
+            ${user.username}
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/logout"/>">Выйти</a>
+        </li>
+    </ul>
+</div>
 </div>
 <div class="container">
     <div class="row">
